@@ -26,10 +26,21 @@
   <h1>OpenStreetMap with Custom Data and Geolocation</h1>
   
   <div id="map"></div>
-  
-<script src="/js/map-initialize.js" defer></script>
-<script src="/js/fetch-parse-csv.js" defer></script>
-<script src="/js/geolocation.js" defer></script>
 
+  <button id="centerButton">Center Map on Current Location</button>
+
+  <script src="/js/map-initialize.js"></script>
+  <script src="/js/fetch-parse-csv.js"></script>
+  <script src="/js/geolocation.js"></script>
+  <script>
+    // Add an event listener to the centerButton
+    document.getElementById("centerButton").addEventListener("click", centerMapOnLocation);
+
+    // Function to center the map on the user's location
+    function centerMapOnLocation() {
+      // Call the geolocation API to get the user's location
+      navigator.geolocation.getCurrentPosition(success, error);
+    }
+  </script>
 </body>
 </html>
