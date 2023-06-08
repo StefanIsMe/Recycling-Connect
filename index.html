@@ -34,6 +34,29 @@
   <script>
     // Add an event listener to the centerButton
     document.getElementById("centerButton").addEventListener("click", centerMapOnLocation);
+
+    // Function to center the map on the user's location
+    function centerMapOnLocation() {
+      // Call the geolocation API to get the user's location
+      navigator.geolocation.getCurrentPosition(success, error);
+    }
+
+    // Function to handle geolocation success
+    function success(position) {
+      console.log("Geolocation successful:", position);
+
+      var lat = position.coords.latitude;
+      var lng = position.coords.longitude;
+
+      // Center the map on the user's location
+      map.setView([lat, lng], 13);
+    }
+
+    // Function to handle geolocation error
+    function error(error) {
+      console.log("Error accessing geolocation:", error);
+      alert("Error accessing geolocation. Please check your browser settings and permissions.");
+    }
   </script>
 </body>
 </html>
