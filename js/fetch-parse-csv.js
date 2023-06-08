@@ -25,6 +25,7 @@ function initializeMap(data) {
 
       var marker = L.marker([lat, lng]).addTo(map);
       marker.bindPopup("<b>" + name + "</b><br>" + description);
+      console.log("Map is initialized.");
     });
   } else {
     console.log("Map is not initialized.");
