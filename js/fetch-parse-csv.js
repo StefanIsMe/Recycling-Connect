@@ -1,6 +1,3 @@
-// Declare the map variable (accessible globally)
-var map;
-
 // Fetch and parse the CSV file
 Papa.parse("../db/collection.csv", {
   download: true,
@@ -10,14 +7,14 @@ Papa.parse("../db/collection.csv", {
 
     // Process the parsed CSV data and add markers to the map
     var data = results.data;
-    addMarkersToMap(data);
+    initializeMap(data);
   },
   error: function(error) {
     console.log("Error parsing CSV file:", error);
   }
 });
 
-function addMarkersToMap(data) {
+function initializeMap(data) {
   // Check if the map variable is defined and valid
   if (map) {
     data.forEach(function(item) {
