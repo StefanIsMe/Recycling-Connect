@@ -6,9 +6,6 @@ function success(position) {
   var lng = position.coords.longitude;
 
   map.setView([lat, lng], 13);
-
-  // Create a marker at the user's location
-  L.marker([lat, lng]).addTo(map);
 }
 
 // Function to handle geolocation error
