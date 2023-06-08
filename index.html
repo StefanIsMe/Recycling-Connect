@@ -59,7 +59,7 @@
     }
 
     // Detect if the browser is Microsoft Edge
-    var isEdge = /Edge\/\d+/.test(navigator.userAgent);
+    var isEdge = window.navigator.userAgent.indexOf("Edge") > -1 || window.navigator.userAgent.indexOf("Edg") > -1;
 
     // Display a message for Edge users
     if (isEdge) {
@@ -67,26 +67,5 @@
       alert(message);
     }
   </script>
-
-  <noscript>
-    <style>
-      #noscript-message {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background-color: #f44336;
-        color: #fff;
-        padding: 10px;
-        text-align: center;
-        font-weight: bold;
-      }
-    </style>
-    <div id="noscript-message">
-      <p>This website requires JavaScript to function properly.</p>
-      <p>Please enable JavaScript in your browser settings or use a different browser.</p>
-      <p>If you are using Microsoft Edge, please use Google Chrome for the best experience.</p>
-    </div>
-  </noscript>
 </body>
 </html>
