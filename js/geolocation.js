@@ -13,6 +13,9 @@ function success(position) {
 
   // Center the map on the user's location
   map.setView([lat, lng], 13);
+  
+    // Add a marker at the user's location
+  L.marker([lat, lng]).addTo(map).bindPopup("You are here!");
 }
 
 // Function to handle geolocation error
