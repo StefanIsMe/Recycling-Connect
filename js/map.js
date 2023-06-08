@@ -11,6 +11,8 @@ function initializeMap() {
     download: true,
     header: true,
     complete: function(results) {
+      console.log("CSV file successfully parsed:", results);
+
       // Process the parsed CSV data and add markers to the map
       var data = results.data;
       data.forEach(function(item) {
@@ -22,6 +24,9 @@ function initializeMap() {
         var marker = L.marker([lat, lng]).addTo(map);
         marker.bindPopup("<b>" + name + "</b><br>" + description);
       });
+    },
+    error: function(error) {
+      console.log("Error parsing CSV file:", error);
     }
   });
 
@@ -29,9 +34,16 @@ function initializeMap() {
   if ("geolocation" in navigator) {
     var centerButton = document.getElementById("centerButton");
     
-    centerButton.addEventListener("click", function() {
-      // Function to handle the button click
-      function centerMapOnLocation(position) {
+    centerButton.addEventListener("click", centerMapOnLocation); // Attach event listener
+
+    // Function to handle the button click
+    function centerMapOnLocation() {
+      console.log("Center button clicked.");
+
+      // Function to handle geolocation success
+      function success(position) {
+        console.log("Geolocation successful:", position);
+
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
           
@@ -41,17 +53,14 @@ function initializeMap() {
         L.marker([lat, lng]).addTo(map);
       }
 
-      // Error handling function
-      function handleGeolocationError(error) {
+      // Function to handle geolocation error
+      function error(error) {
         console.log("Error accessing geolocation:", error);
       }
 
       // Call the geolocation API
-      navigator.geolocation.getCurrentPosition(
-        centerMapOnLocation,
-        handleGeolocationError
-      );
-    });
+      navigator.geolocation.getCurrentPosition(success, error);
+    }
   } else {
     console.log("Geolocation API is not supported.");
   }
