@@ -32,35 +32,26 @@ function initializeMap() {
 
   // Check if the Geolocation API is supported
   if ("geolocation" in navigator) {
-    var centerButton = document.getElementById("centerButton");
-    
-    centerButton.addEventListener("click", centerMapOnLocation); // Attach event listener
+    // Function to handle geolocation success
+    function success(position) {
+      console.log("Geolocation successful:", position);
 
-    // Function to handle the button click
-    function centerMapOnLocation() {
-      console.log("Center button clicked.");
+      var lat = position.coords.latitude;
+      var lng = position.coords.longitude;
 
-      // Function to handle geolocation success
-      function success(position) {
-        console.log("Geolocation successful:", position);
+      map.setView([lat, lng], 13);
 
-        var lat = position.coords.latitude;
-        var lng = position.coords.longitude;
-          
-        map.setView([lat, lng], 13);
-
-        // Create a marker at the user's location
-        L.marker([lat, lng]).addTo(map);
-      }
-
-      // Function to handle geolocation error
-      function error(error) {
-        console.log("Error accessing geolocation:", error);
-      }
-
-      // Call the geolocation API
-      navigator.geolocation.getCurrentPosition(success, error);
+      // Create a marker at the user's location
+      L.marker([lat, lng]).addTo(map);
     }
+
+    // Function to handle geolocation error
+    function error(error) {
+      console.log("Error accessing geolocation:", error);
+    }
+
+    // Call the geolocation API to get the user's location
+    navigator.geolocation.getCurrentPosition(success, error);
   } else {
     console.log("Geolocation API is not supported.");
   }
