@@ -58,19 +58,26 @@
       var centerButton = document.getElementById("centerButton");
       
       centerButton.addEventListener("click", function() {
-        navigator.geolocation.getCurrentPosition(
-          function(position) {
-            var lat = position.coords.latitude;
-            var lng = position.coords.longitude;
+        // Function to handle the button click
+        function centerMapOnLocation(position) {
+          var lat = position.coords.latitude;
+          var lng = position.coords.longitude;
             
-            map.setView([lat, lng], 13);
+          map.setView([lat, lng], 13);
 
-            // Create a marker at the user's location
-            L.marker([lat, lng]).addTo(map);
-          },
-          function(error) {
-            console.log("Error accessing geolocation:", error);
-          }
+          // Create a marker at the user's location
+          L.marker([lat, lng]).addTo(map);
+        }
+
+        // Error handling function
+        function handleGeolocationError(error) {
+          console.log("Error accessing geolocation:", error);
+        }
+
+        // Call the geolocation API
+        navigator.geolocation.getCurrentPosition(
+          centerMapOnLocation,
+          handleGeolocationError
         );
       });
     } else {
