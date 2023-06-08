@@ -1,3 +1,9 @@
+// Function to center the map on the user's location
+function centerMapOnLocation() {
+  // Call the geolocation API to get the user's location
+  navigator.geolocation.getCurrentPosition(success, error);
+}
+
 // Function to handle geolocation success
 function success(position) {
   console.log("Geolocation successful:", position);
