@@ -28,6 +28,7 @@
   <div id="map"></div>
 
   <button id="centerButton">Center Map on Current Location</button>
+  <button id="testGeolocationButton">Test Geolocation</button>
 
   <script src="/js/map-initialize.js"></script>
   <script src="/js/fetch-parse-csv.js"></script>
@@ -35,28 +36,6 @@
   <script>
     // Add an event listener to the centerButton
     document.getElementById("centerButton").addEventListener("click", centerMapOnLocation);
-
-    // Function to center the map on the user's location
-    function centerMapOnLocation() {
-      // Call the geolocation API to get the user's location
-      navigator.geolocation.getCurrentPosition(success, error);
-    }
-
-    // Function to handle geolocation success
-    function success(position) {
-      console.log("Geolocation successful:", position);
-
-      var lat = position.coords.latitude;
-      var lng = position.coords.longitude;
-
-      alert("Latitude: " + lat + ", Longitude: " + lng);
-    }
-
-    // Function to handle geolocation error
-    function error(error) {
-      console.log("Error accessing geolocation:", error);
-      alert("Error accessing geolocation. Please check your browser settings and permissions.");
-    }
   </script>
 </body>
 </html>
