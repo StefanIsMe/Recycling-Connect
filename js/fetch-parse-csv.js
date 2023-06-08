@@ -23,6 +23,11 @@ function initializeMap(data) {
       var lng = parseFloat(item.longitude);
       var description = item.description;
 
+      console.log("Name:", name);
+      console.log("Latitude:", lat);
+      console.log("Longitude:", lng);
+      console.log("Description:", description);
+
       var marker = L.marker([lat, lng]).addTo(map);
       marker.bindPopup("<b>" + name + "</b><br>" + description);
       console.log("Map data is initialized.");
