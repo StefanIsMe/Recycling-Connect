@@ -7,7 +7,7 @@ function initializeMap() {
   }).addTo(map);
 
   // Fetch and parse the CSV file
-  Papa.parse(".../db/collection.csv", {
+  Papa.parse("../db/collection.csv", {
     download: true,
     header: true,
     complete: function(results) {
