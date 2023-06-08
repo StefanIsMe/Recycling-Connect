@@ -16,7 +16,7 @@ Papa.parse("../db/collection.csv", {
 
 function initializeMap(data) {
   // Check if the map variable is defined and valid
-  if (map) {
+  if (typeof map !== "undefined" && map !== null) {
     data.forEach(function(item) {
       var name = item.name;
       var lat = parseFloat(item.latitude);
