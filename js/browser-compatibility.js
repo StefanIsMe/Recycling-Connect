@@ -1,7 +1,9 @@
 function browserCompatibilityCheck() {
   try {
     // Check if the browser is not Google Chrome
-    var isNotChrome = !window.navigator.userAgent.includes("Chrome");
+    var isNotChrome = !(navigator.userAgentData && navigator.userAgentData.brands && navigator.userAgentData.brands.some(function(brand) {
+      return brand.brand === 'Google Chrome';
+    }));
 
     // Display a message based on the browser
     if (isNotChrome) {
