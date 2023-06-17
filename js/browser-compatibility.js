@@ -9,7 +9,7 @@ function browserCompatibilityCheck() {
     if (isNotChrome) {
       var message = "This website works best in Google Chrome. Please switch to Chrome for the best experience.";
       var error = new Error("An error occurred with the web browser compatibility JavaScript code detection");
-      error.details = message;
+      error.details = "Error: " + error.message + "\nMessage: " + message;
       console.error(error);
       hideContent();
       showMessage(message);
