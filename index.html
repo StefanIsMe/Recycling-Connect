@@ -38,7 +38,7 @@
     // Function to center the map on the user's location
     function centerMapOnLocation() {
       // Call the geolocation API to get the user's location
-      navigator.geolocation.getCurrentPosition(success, error);
+      navigator.geolocation.getCurrentPosition(success, showError);
     }
 
     // Function to handle geolocation success
@@ -50,12 +50,30 @@
 
       // Center the map on the user's location
       map.setView([lat, lng], 13);
+
+      // Additional success code here
+      alert("Geolocation successful! Map centered on your location.");
     }
 
     // Function to handle geolocation error
-    function error(error) {
+    function showError(error) {
       console.log("Error accessing geolocation:", error);
-      alert("Error accessing geolocation. Please check your browser settings and permissions.");
+      
+      // Error handling code here
+      switch (error.code) {
+        case error.PERMISSION_DENIED:
+          alert("Geolocation access denied. Please enable geolocation in your browser settings.");
+          break;
+        case error.POSITION_UNAVAILABLE:
+          alert("Geolocation information is unavailable. Please try again later.");
+          break;
+        case error.TIMEOUT:
+          alert("Geolocation request timed out. Please try again.");
+          break;
+        case error.UNKNOWN_ERROR:
+          alert("An unknown error occurred while accessing geolocation.");
+          break;
+      }
     }
   </script>
 </body>
