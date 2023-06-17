@@ -18,7 +18,8 @@ function browserCompatibilityCheck() {
     }
   } catch (error) {
     console.error("An unexpected error occurred with the web browser compatibility JavaScript code detection");
-    console.error(error);
+    console.error("Error message: " + error.message);
+    console.error("Stack trace: " + error.stack);
   }
 }
 
@@ -39,7 +40,8 @@ function hideContent() {
     console.log("Content hidden.");
   } catch (error) {
     console.error("An unexpected error occurred while hiding content.");
-    console.error(error);
+    console.error("Error message: " + error.message);
+    console.error("Stack trace: " + error.stack);
   }
 }
 
@@ -63,7 +65,8 @@ function showMessage(message) {
     }
   } catch (error) {
     console.error("An unexpected error occurred while displaying the error message.");
-    console.error(error);
+    console.error("Error message: " + error.message);
+    console.error("Stack trace: " + error.stack);
   }
 }
 
