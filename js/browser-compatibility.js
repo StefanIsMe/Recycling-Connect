@@ -1,5 +1,7 @@
 function browserCompatibilityCheck() {
   try {
+    console.log("Checking browser compatibility...");
+
     // Check if the browser is not Google Chrome
     var isNotChrome = !(navigator.userAgentData && navigator.userAgentData.brands && navigator.userAgentData.brands.some(function(brand) {
       return brand.brand === 'Google Chrome';
@@ -7,14 +9,18 @@ function browserCompatibilityCheck() {
 
     // Display a message based on the browser
     if (isNotChrome) {
+      console.log("Detected a non-Chrome browser.");
+
       var message = "This website works best in Google Chrome. Please switch to Chrome for the best experience.";
+
       var error = new Error("An error occurred with the web browser compatibility JavaScript code detection");
       error.details = "Error: " + error.message + "\nMessage: " + message;
       console.error(error);
+
       hideContent();
       showMessage(message);
     } else {
-      console.log("The web browser is Google Chrome.");
+      console.log("Detected Google Chrome browser.");
     }
   } catch (error) {
     console.error("An unexpected error occurred with the web browser compatibility JavaScript code detection");
@@ -25,6 +31,8 @@ function browserCompatibilityCheck() {
 
 function hideContent() {
   try {
+    console.log("Hiding content...");
+
     var bodyElement = document.getElementsByTagName("body")[0];
 
     if (!bodyElement) {
@@ -37,7 +45,7 @@ function hideContent() {
       element.style.display = "none";
     });
 
-    console.log("Content hidden.");
+    console.log("Content hidden successfully.");
   } catch (error) {
     console.error("An unexpected error occurred while hiding content.");
     console.error("Error message: " + error.message);
@@ -47,6 +55,8 @@ function hideContent() {
 
 function showMessage(message) {
   try {
+    console.log("Displaying error message...");
+
     var bodyElement = document.getElementsByTagName("body")[0];
 
     if (!bodyElement) {
@@ -59,8 +69,11 @@ function showMessage(message) {
       h1Element.className = "chrome-message";
       var textNode = document.createTextNode(message);
       h1Element.appendChild(textNode);
-      bodyElement.innerHTML = ""; // Clear existing content
+
+      // Clear existing content
+      bodyElement.innerHTML = "";
       bodyElement.appendChild(h1Element);
+
       console.log("Error message displayed:", message);
     }
   } catch (error) {
