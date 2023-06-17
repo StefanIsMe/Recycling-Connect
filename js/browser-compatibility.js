@@ -57,6 +57,7 @@ function showMessage(message) {
       h1Element.className = "chrome-message";
       var textNode = document.createTextNode(message);
       h1Element.appendChild(textNode);
+      bodyElement.innerHTML = ""; // Clear existing content
       bodyElement.appendChild(h1Element);
       console.log("Error message displayed:", message);
     }
