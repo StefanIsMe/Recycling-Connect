@@ -9,13 +9,10 @@ function browserCompatibilityCheck() {
 
     // Display a message based on the browser
     if (isNotChrome) {
-      console.log("Detected a non-Chrome browser.");
-
       var message = "This website works best in Google Chrome. Please switch to Chrome for the best experience.";
       var error = new Error("Browser Compatibility Error");
-      error.details = "Browser: " + navigator.userAgent + "\nMessage: " + message;
+      error.stack = message;
       console.error(error);
-
       hideContent();
       showMessage(message);
     } else {
@@ -34,7 +31,7 @@ function hideContent() {
     var bodyElement = document.getElementsByTagName("body")[0];
 
     if (!bodyElement) {
-      throw new Error("Body element not found. Check if the 'body' tag exists in the HTML.");
+      throw new Error("Body element not found");
     }
 
     // Hide all child elements of the body
@@ -57,7 +54,7 @@ function showMessage(message) {
     var bodyElement = document.getElementsByTagName("body")[0];
 
     if (!bodyElement) {
-      throw new Error("Body element not found. Check if the 'body' tag exists in the HTML.");
+      throw new Error("Body element not found");
     }
 
     var existingH1Element = document.querySelector("h1.chrome-message");
