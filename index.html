@@ -2,18 +2,21 @@
 <html>
 <head>
   <script src="/js/browser-compatibility.js" defer></script>
+  <script src="/js/map-initialize.js" defer></script>
+  <script src="/js/fetch-parse-csv.js" defer></script>
+  <script src="/js/geolocation.js" defer></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OpenStreetMap with Custom Data and Geolocation</title>
   
   <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css?v=1.0" crossorigin="anonymous" />
 
-  <!-- Leaflet JavaScript -->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <!-- Leaflet JavaScript (Preload) -->
+  <link rel="preload" href="https://unpkg.com/leaflet/dist/leaflet.js?v=1.0" as="script" crossorigin="anonymous">
 
-  <!-- Papa Parse JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  <!-- Papa Parse JavaScript (Preload) -->
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js?v=1.0" as="script" crossorigin="anonymous">
   
   <style>
     #map {
@@ -28,9 +31,6 @@
 
   <button id="centerButton">Center Map on Current Location</button>
 
-  <script src="/js/map-initialize.js"defer></script>
-  <script src="/js/fetch-parse-csv.js" defer></script>
-  <script src="/js/geolocation.js" defer></script>
   <script>
     // Add an event listener to the centerButton
     document.getElementById("centerButton").addEventListener("click", centerMapOnLocation);
