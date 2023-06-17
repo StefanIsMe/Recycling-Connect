@@ -11,29 +11,12 @@ function browserCompatibilityCheck() {
       var error = new Error("An error occurred with the web browser compatibility JavaScript code detection");
       error.details = message;
       console.error(error);
-      hideContent();
       showMessage(message);
     } else {
       console.log("The web browser is Google Chrome.");
     }
   } catch (error) {
     console.error("An unexpected error occurred with the web browser compatibility JavaScript code detection");
-    console.error(error);
-  }
-}
-
-function hideContent() {
-  try {
-    var bodyElement = document.getElementsByTagName("body")[0];
-
-    if (!bodyElement) {
-      throw new Error("Body element not found");
-    }
-
-    bodyElement.innerHTML = "<h1>This website works best in Google Chrome. Please switch to Chrome for the best experience.</h1>";
-    console.log("Content hidden.");
-  } catch (error) {
-    console.error("An unexpected error occurred while hiding content.");
     console.error(error);
   }
 }
@@ -46,11 +29,15 @@ function showMessage(message) {
       throw new Error("Body element not found");
     }
 
-    var h1Element = document.createElement("h1");
-    var textNode = document.createTextNode(message);
-    h1Element.appendChild(textNode);
-    bodyElement.appendChild(h1Element);
-    console.log("Error message displayed:", message);
+    var existingH1Element = document.querySelector("h1.chrome-message");
+    if (!existingH1Element) {
+      var h1Element = document.createElement("h1");
+      h1Element.className = "chrome-message";
+      var textNode = document.createTextNode(message);
+      h1Element.appendChild(textNode);
+      bodyElement.appendChild(h1Element);
+      console.log("Error message displayed:", message);
+    }
   } catch (error) {
     console.error("An unexpected error occurred while displaying the error message.");
     console.error(error);
