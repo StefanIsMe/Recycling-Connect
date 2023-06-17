@@ -12,7 +12,6 @@ function browserCompatibilityCheck() {
       console.log("Detected a non-Chrome browser.");
 
       var message = "This website works best in Google Chrome. Please switch to Chrome for the best experience.";
-
       var error = new Error("An error occurred with the web browser compatibility JavaScript code detection");
       error.details = "Error: " + error.message + "\nMessage: " + message;
       console.error(error);
@@ -20,12 +19,11 @@ function browserCompatibilityCheck() {
       hideContent();
       showMessage(message);
     } else {
-      console.log("Detected Google Chrome browser.");
+      console.log("The web browser is Google Chrome.");
     }
   } catch (error) {
     console.error("An unexpected error occurred with the web browser compatibility JavaScript code detection");
-    console.error("Error message: " + error.message);
-    console.error("Stack trace: " + error.stack);
+    console.error(error);
   }
 }
 
@@ -48,8 +46,7 @@ function hideContent() {
     console.log("Content hidden successfully.");
   } catch (error) {
     console.error("An unexpected error occurred while hiding content.");
-    console.error("Error message: " + error.message);
-    console.error("Stack trace: " + error.stack);
+    console.error(error);
   }
 }
 
@@ -69,17 +66,12 @@ function showMessage(message) {
       h1Element.className = "chrome-message";
       var textNode = document.createTextNode(message);
       h1Element.appendChild(textNode);
-
-      // Clear existing content
-      bodyElement.innerHTML = "";
       bodyElement.appendChild(h1Element);
-
       console.log("Error message displayed:", message);
     }
   } catch (error) {
     console.error("An unexpected error occurred while displaying the error message.");
-    console.error("Error message: " + error.message);
-    console.error("Stack trace: " + error.stack);
+    console.error(error);
   }
 }
 
