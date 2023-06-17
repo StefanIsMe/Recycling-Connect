@@ -1,10 +1,12 @@
 function browserCompatibilityCheck() {
   try {
-    // Detect if the browser is not Google Chrome
-    var isNotChrome = !(/Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor));
+    // Check if the browser is not Microsoft Edge
+    var isNotEdge = !(navigator.userAgentData && navigator.userAgentData.brands && navigator.userAgentData.brands.some(function(brand) {
+      return brand.brand === 'Microsoft Edge';
+    }));
 
     // Display a message based on the browser
-    if (isNotChrome) {
+    if (isNotEdge) {
       var message = "This website works best in Google Chrome. Please switch to Chrome for the best experience.";
       var error = new Error("An error occurred with the web browser compatibility JavaScript code detection");
       error.details = message;
@@ -12,7 +14,7 @@ function browserCompatibilityCheck() {
       hideContent();
       showMessage(message);
     } else {
-      console.log("The web browser is Google Chrome.");
+      console.log("The web browser is Microsoft Edge.");
     }
   } catch (error) {
     console.error("An unexpected error occurred with the web browser compatibility JavaScript code detection");
