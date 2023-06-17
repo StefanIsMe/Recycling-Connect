@@ -11,13 +11,20 @@ function browserCompatibilityCheck() {
     if (isNotChrome) {
       var message = "This website works best in Google Chrome. Please switch to Chrome for the best experience.";
       var error = new Error("Browser Compatibility Error");
-      error.stack = message;
+      error.details = "Message: " + message;
       console.error(error);
       hideContent();
       showMessage(message);
+
+      console.log("Preventing further data from loading.");
+      // Stop loading further data by returning from the function
+      return;
     } else {
       console.log("The web browser is Google Chrome.");
     }
+
+    // Continue with other code here if needed
+    // ...
   } catch (error) {
     console.error("An unexpected error occurred with the web browser compatibility JavaScript code detection");
     console.error(error);
