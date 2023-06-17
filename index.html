@@ -13,10 +13,10 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css?v=1.0" crossorigin="anonymous" />
 
   <!-- Leaflet JavaScript (Preload) -->
-  <link rel="preload" href="https://unpkg.com/leaflet/dist/leaflet.js?v=1.0" as="script">
+  <link rel="preload" href="https://unpkg.com/leaflet/dist/leaflet.js?v=1.0" as="script" crossorigin="anonymous">
 
   <!-- Papa Parse JavaScript (Preload) -->
-  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js?v=1.0" as="script">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js?v=1.0" as="script" crossorigin="anonymous">
   
   <style>
     #map {
@@ -32,15 +32,6 @@
   <button id="centerButton">Center Map on Current Location</button>
 
   <script>
-    // Add an event listener to the centerButton
-    document.getElementById("centerButton").addEventListener("click", centerMapOnLocation);
-
-    // Function to center the map on the user's location
-    function centerMapOnLocation() {
-      // Call the geolocation API to get the user's location
-      navigator.geolocation.getCurrentPosition(success, showError);
-    }
-
     // Function to handle geolocation success
     function success(position) {
       console.log("Geolocation successful:", position);
@@ -50,30 +41,21 @@
 
       // Center the map on the user's location
       map.setView([lat, lng], 13);
-
-      // Additional success code here
-      alert("Geolocation successful! Map centered on your location.");
     }
 
     // Function to handle geolocation error
-    function showError(error) {
+    function error(error) {
       console.log("Error accessing geolocation:", error);
-      
-      // Error handling code here
-      switch (error.code) {
-        case error.PERMISSION_DENIED:
-          alert("Geolocation access denied. Please enable geolocation in your browser settings.");
-          break;
-        case error.POSITION_UNAVAILABLE:
-          alert("Geolocation information is unavailable. Please try again later.");
-          break;
-        case error.TIMEOUT:
-          alert("Geolocation request timed out. Please try again.");
-          break;
-        case error.UNKNOWN_ERROR:
-          alert("An unknown error occurred while accessing geolocation.");
-          break;
-      }
+      alert("Error accessing geolocation. Please check your browser settings and permissions.");
+    }
+
+    // Add an event listener to the centerButton
+    document.getElementById("centerButton").addEventListener("click", centerMapOnLocation);
+
+    // Function to center the map on the user's location
+    function centerMapOnLocation() {
+      // Call the geolocation API to get the user's location
+      navigator.geolocation.getCurrentPosition(success, error);
     }
   </script>
 </body>
