@@ -8,7 +8,9 @@ function browserCompatibilityCheck() {
     // Display a message based on the browser
     if (isNotChrome) {
       var message = "This website works best in Google Chrome. Please switch to Chrome for the best experience.";
-      console.error("An error occurred with the web browser compatibility JavaScript code detection. Details:", message);
+      var error = new Error("An error occurred with the web browser compatibility JavaScript code detection");
+      error.details = message;
+      console.error(error);
       hideContent();
       showMessage(message);
     } else {
@@ -22,13 +24,14 @@ function browserCompatibilityCheck() {
 
 function hideContent() {
   try {
-    var contentElement = document.getElementById("content");
-    if (contentElement) {
-      contentElement.style.display = "none";
-      console.log("Content element is hidden.");
-    } else {
-      console.warn("Content element not found.");
+    var bodyElement = document.getElementsByTagName("body")[0];
+
+    if (!bodyElement) {
+      throw new Error("Body element not found");
     }
+
+    bodyElement.innerHTML = "<h1>This website works best in Google Chrome. Please switch to Chrome for the best experience.</h1>";
+    console.log("Content hidden.");
   } catch (error) {
     console.error("An unexpected error occurred while hiding content.");
     console.error(error);
@@ -38,6 +41,11 @@ function hideContent() {
 function showMessage(message) {
   try {
     var bodyElement = document.getElementsByTagName("body")[0];
+
+    if (!bodyElement) {
+      throw new Error("Body element not found");
+    }
+
     var h1Element = document.createElement("h1");
     var textNode = document.createTextNode(message);
     h1Element.appendChild(textNode);
