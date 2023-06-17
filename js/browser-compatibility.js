@@ -2,14 +2,14 @@ function browserCompatibilityCheck() {
   try {
     console.log("Checking browser compatibility...");
 
-    // Check if the browser is not Google Chrome
-    var isNotChrome = !(navigator.userAgentData && navigator.userAgentData.brands && navigator.userAgentData.brands.some(function(brand) {
-      return brand.brand === 'Google Chrome';
+    // Check if the browser is not Google Chrome or Microsoft Edge
+    var isNotChromeOrEdge = !(navigator.userAgentData && navigator.userAgentData.brands && navigator.userAgentData.brands.some(function(brand) {
+      return brand.brand === 'Google Chrome' || brand.brand === 'Microsoft Edge';
     }));
 
     // Display a message based on the browser
-    if (isNotChrome) {
-      var message = "This website works best in Google Chrome. Please switch to Chrome for the best experience.";
+    if (isNotChromeOrEdge) {
+      var message = "This website works best in Google Chrome or Microsoft Edge. Please switch to one of these browsers for the best experience.";
       var error = new Error("Browser Compatibility Error");
       error.details = "Message: " + message;
       console.error(error);
@@ -20,7 +20,7 @@ function browserCompatibilityCheck() {
       // Stop loading further data by returning from the function
       return;
     } else {
-      console.log("The web browser is Google Chrome.");
+      console.log("The web browser is compatible.");
     }
 
     // Continue with other code here if needed
