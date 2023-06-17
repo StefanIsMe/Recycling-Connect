@@ -31,10 +31,10 @@ function hideContent() {
     }
 
     // Hide all child elements of the body
-    while (bodyElement.firstChild) {
-      bodyElement.firstChild.style.display = "none";
-      bodyElement.removeChild(bodyElement.firstChild);
-    }
+    var childElements = Array.from(bodyElement.children);
+    childElements.forEach(function(element) {
+      element.style.display = "none";
+    });
 
     console.log("Content hidden.");
   } catch (error) {
