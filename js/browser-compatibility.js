@@ -1,5 +1,7 @@
 // Detect if the browser is not Google Chrome
-var isNotChrome = window.navigator.userAgent.indexOf("Chrome") === -1;
+var isNotChrome = !(navigator.userAgentData && navigator.userAgentData.brands && navigator.userAgentData.brands.some(function (brand) {
+  return brand.brand === 'Google Chrome';
+}));
 
 // Display a message based on the browser
 if (isNotChrome) {
