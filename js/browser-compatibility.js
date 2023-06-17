@@ -48,3 +48,6 @@ function showMessage(message) {
     console.error(error);
   }
 }
+
+// Call the browser compatibility check function
+browserCompatibilityCheck();
