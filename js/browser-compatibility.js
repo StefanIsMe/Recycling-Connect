@@ -1,12 +1,12 @@
 function browserCompatibilityCheck() {
   try {
     // Check if the browser is not Google Chrome
-    var isNotChrome = window.navigator.userAgent.indexOf("Chrome") === -1;
+    var isNotChrome = !window.navigator.userAgent.includes("Chrome");
 
     // Display a message based on the browser
     if (isNotChrome) {
       var message = "This website works best in Google Chrome. Please switch to Chrome for the best experience.";
-      console.error("The web browser is not Google Chrome.");
+      console.error("An error occurred with the web browser compatibility JavaScript code detection. Details:", message);
       hideContent();
       showMessage(message);
     } else {
@@ -36,7 +36,10 @@ function hideContent() {
 function showMessage(message) {
   try {
     var bodyElement = document.getElementsByTagName("body")[0];
-    bodyElement.innerHTML = "<h1>" + message + "</h1>";
+    var h1Element = document.createElement("h1");
+    var textNode = document.createTextNode(message);
+    h1Element.appendChild(textNode);
+    bodyElement.appendChild(h1Element);
     console.log("Error message displayed:", message);
   } catch (error) {
     console.error("An unexpected error occurred while displaying the error message.");
