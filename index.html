@@ -3,55 +3,32 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connect to MetaMask</title>
+  <title>Connect to MetaMask Wallet</title>
 </head>
 <body>
-  <h1>Connect to MetaMask</h1>
+  <h1>Connect to MetaMask Wallet</h1>
   
-  <button id="connectButton">Connect to MetaMask</button>
+  <button onclick="connectToMetaMask()">Connect to MetaMask Wallet</button>
 
-  <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
   <script>
-    // Check if MetaMask is available
-    if (typeof web3 !== 'undefined') {
-      web3 = new Web3(web3.currentProvider);
-    } else {
-      // Handle case where MetaMask is not installed or not detected
-      console.log('MetaMask is not available');
-    }
-
-    // Function to handle connecting to MetaMask
-    function connectToMetaMask() {
-      // Request access to the user's MetaMask accounts
-      web3.eth.requestAccounts()
-        .then(accounts => {
-          // Check if at least one account is returned
+    async function connectToMetaMask() {
+      try {
+        if (window.ethereum) {
+          // Request account access
+          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
           if (accounts.length > 0) {
-            // Handle successful connection
-            console.log('Connected to MetaMask');
-            console.log('User account:', accounts[0]);
-
-            // Perform any further actions with the connected account
-            // ...
+            console.log('MetaMask wallet connected successfully!');
+            console.log('Connected account:', accounts[0]);
           } else {
-            // Handle case where no accounts are returned
-            console.log('No accounts found');
+            console.error('MetaMask wallet connection was rejected by the user.');
           }
-        })
-        .catch(error => {
-          // Handle error during connection
-          console.error('Error connecting to MetaMask:', error.message);
-        });
+        } else {
+          console.error('MetaMask is not installed. Please install MetaMask to connect your wallet.');
+        }
+      } catch (error) {
+        console.error('Error connecting to MetaMask wallet:', error);
+      }
     }
-
-    // Add an event listener to the connectButton
-    const connectButton = document.getElementById('connectButton');
-    connectButton.addEventListener('click', connectToMetaMask);
-
-    // Log a message when the page finishes loading
-    window.addEventListener('load', () => {
-      console.log('Page loaded');
-    });
   </script>
 </body>
 </html>
