@@ -25,21 +25,33 @@
       // Request access to the user's MetaMask accounts
       web3.eth.requestAccounts()
         .then(accounts => {
-          // Handle successful connection
-          console.log('Connected to MetaMask');
-          console.log('User account:', accounts[0]);
-          
-          // Perform any further actions with the connected account
-          // ...
+          // Check if at least one account is returned
+          if (accounts.length > 0) {
+            // Handle successful connection
+            console.log('Connected to MetaMask');
+            console.log('User account:', accounts[0]);
+
+            // Perform any further actions with the connected account
+            // ...
+          } else {
+            // Handle case where no accounts are returned
+            console.log('No accounts found');
+          }
         })
         .catch(error => {
           // Handle error during connection
-          console.error('Error connecting to MetaMask:', error);
+          console.error('Error connecting to MetaMask:', error.message);
         });
     }
 
     // Add an event listener to the connectButton
-    document.getElementById('connectButton').addEventListener('click', connectToMetaMask);
+    const connectButton = document.getElementById('connectButton');
+    connectButton.addEventListener('click', connectToMetaMask);
+
+    // Log a message when the page finishes loading
+    window.addEventListener('load', () => {
+      console.log('Page loaded');
+    });
   </script>
 </body>
 </html>
