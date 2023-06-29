@@ -2,45 +2,19 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connect to MetaMask Wallet</title>
+  <title>MetaMask Integration Example</title>
 </head>
 <body>
-  <h1>Connect to MetaMask Wallet</h1>
-  
-  <button id="connectButton" onclick="toggleWalletConnection()">Connect to MetaMask Wallet</button>
+  <h1>MetaMask Integration Example</h1>
 
-  <script>
-    let walletConnected = false;
+  <div id="walletInfo">
+    <p id="status">Wallet not connected</p>
+    <p id="address"></p>
+  </div>
 
-    async function toggleWalletConnection() {
-      try {
-        if (window.ethereum) {
-          if (walletConnected) {
-            // Disconnect from wallet
-            await window.ethereum.request({ method: 'wallet_requestPermissions', params: [{ eth_accounts: {} }] });
-            console.log('Disconnected from MetaMask wallet.');
-            document.getElementById('connectButton').innerText = 'Connect to MetaMask Wallet';
-            walletConnected = false;
-          } else {
-            // Request account access
-            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-            if (accounts.length > 0) {
-              console.log('MetaMask wallet connected successfully!');
-              console.log('Connected account:', accounts[0]);
-              document.getElementById('connectButton').innerText = 'Connected';
-              walletConnected = true;
-            } else {
-              console.error('MetaMask wallet connection was rejected by the user.');
-            }
-          }
-        } else {
-          console.error('MetaMask is not installed. Please install MetaMask to connect your wallet.');
-        }
-      } catch (error) {
-        console.error('Error connecting to MetaMask wallet:', error);
-      }
-    }
-  </script>
+  <button id="connectButton">Connect Wallet</button>
+  <button id="disconnectButton" style="display: none;">Disconnect Wallet</button>
+
+  <script src="wallet.js"></script>
 </body>
 </html>
