@@ -11,14 +11,17 @@
   <button id="connectButton" onclick="toggleWalletConnection()">Connect to MetaMask Wallet</button>
 
   <script>
+    let walletConnected = false;
+
     async function toggleWalletConnection() {
       try {
         if (window.ethereum) {
-          if (window.ethereum.selectedAddress) {
+          if (walletConnected) {
             // Disconnect from wallet
             await window.ethereum.request({ method: 'wallet_requestPermissions', params: [{ eth_accounts: {} }] });
             console.log('Disconnected from MetaMask wallet.');
             document.getElementById('connectButton').innerText = 'Connect to MetaMask Wallet';
+            walletConnected = false;
           } else {
             // Request account access
             const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -26,6 +29,7 @@
               console.log('MetaMask wallet connected successfully!');
               console.log('Connected account:', accounts[0]);
               document.getElementById('connectButton').innerText = 'Connected';
+              walletConnected = true;
             } else {
               console.error('MetaMask wallet connection was rejected by the user.');
             }
