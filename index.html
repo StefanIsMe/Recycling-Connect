@@ -8,19 +8,27 @@
 <body>
   <h1>Connect to MetaMask Wallet</h1>
   
-  <button onclick="connectToMetaMask()">Connect to MetaMask Wallet</button>
+  <button id="connectButton" onclick="toggleWalletConnection()">Connect to MetaMask Wallet</button>
 
   <script>
-    async function connectToMetaMask() {
+    async function toggleWalletConnection() {
       try {
         if (window.ethereum) {
-          // Request account access
-          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-          if (accounts.length > 0) {
-            console.log('MetaMask wallet connected successfully!');
-            console.log('Connected account:', accounts[0]);
+          if (window.ethereum.selectedAddress) {
+            // Disconnect from wallet
+            await window.ethereum.request({ method: 'wallet_requestPermissions', params: [{ eth_accounts: {} }] });
+            console.log('Disconnected from MetaMask wallet.');
+            document.getElementById('connectButton').innerText = 'Connect to MetaMask Wallet';
           } else {
-            console.error('MetaMask wallet connection was rejected by the user.');
+            // Request account access
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            if (accounts.length > 0) {
+              console.log('MetaMask wallet connected successfully!');
+              console.log('Connected account:', accounts[0]);
+              document.getElementById('connectButton').innerText = 'Connected';
+            } else {
+              console.error('MetaMask wallet connection was rejected by the user.');
+            }
           }
         } else {
           console.error('MetaMask is not installed. Please install MetaMask to connect your wallet.');
