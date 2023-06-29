@@ -28,31 +28,31 @@ function connectWallet() {
 
 // Disconnect the MetaMask wallet
 function disconnectWallet() {
-  // Reset UI
-  statusElement.textContent = 'Wallet not connected';
-  addressElement.textContent = '';
-
-  // Remove event listener
-  ethereum.removeListener('accountsChanged', handleAccountsChanged);
-
-  // Disconnect from MetaMask wallet
-  ethereum.disconnect();
-
-  // Hide disconnectButton and show connectButton
-  disconnectButton.style.display = 'none';
-  connectButton.style.display = 'block';
-}
-
-// Handle accountsChanged event
-function handleAccountsChanged(accounts) {
-  if (accounts.length === 0) {
-    // MetaMask is locked or no accounts are available
+    // Reset UI
     statusElement.textContent = 'Wallet not connected';
     addressElement.textContent = '';
-  } else {
-    // MetaMask is connected and accounts are available
-    const address = accounts[0];
-    statusElement.textContent = 'Wallet connected';
-    addressElement.textContent = `Connected address: ${address}`;
+  
+    // Remove event listener
+    ethereum.removeListener('accountsChanged', handleAccountsChanged);
+  
+    // Disconnect from MetaMask wallet by clearing accounts
+    ethereum
+      .request({ method: 'eth_accounts' })
+      .then((accounts) => {
+        if (accounts.length > 0) {
+          return ethereum.request({
+            method: 'wallet_requestPermissions',
+            params: [{ eth_accounts: {} }],
+          });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        statusElement.textContent = 'Error disconnecting wallet';
+      });
+  
+    // Hide disconnectButton and show connectButton
+    disconnectButton.style.display = 'none';
+    connectButton.style.display = 'block';
   }
-}
+  
